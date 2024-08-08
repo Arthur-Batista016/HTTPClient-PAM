@@ -31,6 +31,10 @@ namespace HTTPClient.Services
             try
             {
                 HttpResponseMessage response = await httpClient.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                }
             }
             catch
             {
