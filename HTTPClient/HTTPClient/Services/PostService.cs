@@ -1,4 +1,5 @@
 ﻿using HTTPClient.Models;
+using Org.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,14 @@ namespace HTTPClient.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
+                    posts = JsonSerializer.Deserialize<List<Post>>(content,jsonSerializerOptions)
                 }
             }
             catch
             {
 
             }
+            return posts;
         }
     }
 }
