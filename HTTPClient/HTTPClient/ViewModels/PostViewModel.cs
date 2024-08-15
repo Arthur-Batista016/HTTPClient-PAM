@@ -15,13 +15,13 @@ namespace HTTPClient.ViewModels
     {
         [ObservableProperty]
         ObservableCollection<Post> posts; //substituir listas em observal collection
-        PostService postsService;
+        PostService postService;
         public ICommand getPostagensCommand {get;}//nao tem set
 
         public PostViewModel()
         {
             getPostagensCommand = new Command(getPostagens);
-            PostService postsService = new PostService();//instanciando o post service
+            postService = new PostService();//instanciando o post service
 
         }
 
@@ -31,7 +31,7 @@ namespace HTTPClient.ViewModels
         public async void getPostagens()
         {
              
-            Posts = await postsService.GetPostsAsync();// chamando o metodo do service
+            Posts = await postService.GetPostsAsync();// chamando o metodo do service
         }
     }
 }
