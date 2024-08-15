@@ -1,41 +1,36 @@
 ﻿using HTTPClient.Models;
-using Org.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace HTTPClient.Services
 {
     internal class PostService
     {
         private HttpClient httpClient;
-        private List<Post> posts;
-        private JsonSerializerOptions jsonSerializerOptions;
+        private ObservableCollection<Post> posts;
+        private JsonSerializerOptions jsonSerializerOptions; // configurar/formatar o JSON
 
         public PostService()
         {
             httpClient = new HttpClient();
             jsonSerializerOptions = new JsonSerializerOptions
             {
+                //propriedades dos serializer options
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true,
             };
         }
-        public async Task<List<Post>> GetPostsAsync()
+
+        public async Task<ObservableCollection<Post>> GetPostsAsync() // TASK: usado no await
         {
             Uri uri = new Uri("https://jsonplaceholder.typicode.com/posts");
             try
             {
-                HttpResponseMessage response = await httpClient.GetAsync(uri);
+                HttpResponseMessage response = await httpClient.GetAsync(uri);//quero saber todos os posts;
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    posts = JsonSerializer.Deserialize<List<Post>>(content,jsonSerializerOptions)
+                    string content = await response.Content.ReadAsStringAsync();// tranforma o conteudo em string;
+                    posts = JsonSerializer.Deserialize<ObservableCollection<Post>>(content, jsonSerializerOptions);
                 }
             }
             catch
