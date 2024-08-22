@@ -31,7 +31,7 @@ namespace HTTPClient.ViewModels
         public async void getPostagens()
         {
              
-            Posts = await postService.GetPostsAsync();// chamando o metodo do service
+            Posts = await postService.GetPostsAsync();// chamando o metodo assincrono do service
         }
     }
 }
